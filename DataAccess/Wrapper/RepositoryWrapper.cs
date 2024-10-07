@@ -1,11 +1,12 @@
-﻿using DataAccess.Interfaces;
-using DataAccess.Models;
+﻿using Domian.Interfaces;
+using Domian.Models;
 using DataAccess.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domian.Wrapper;
 
 namespace DataAccess.Wrapper
 {

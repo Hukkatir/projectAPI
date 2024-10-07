@@ -1,6 +1,6 @@
-﻿using BusinessLogic.Interfaces;
+﻿using Domian.Interfaces;
 using BusinessLogic.Services;
-using DataAccess.Models;
+using Domian.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

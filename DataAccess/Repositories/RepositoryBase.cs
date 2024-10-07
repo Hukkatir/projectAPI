@@ -1,5 +1,5 @@
-﻿using DataAccess.Interfaces;
-using DataAccess.Models;
+﻿using Domian.Interfaces;
+using Domian.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

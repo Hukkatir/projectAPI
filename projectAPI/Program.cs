@@ -1,8 +1,9 @@
-using BusinessLogic.Interfaces;
+using Domian.Interfaces;
 using BusinessLogic.Services;
-using DataAccess.Models;
+using Domian.Models;
 using DataAccess.Wrapper;
 using Microsoft.EntityFrameworkCore;
+using Domian.Wrapper;
 
 namespace projectAPI
 {

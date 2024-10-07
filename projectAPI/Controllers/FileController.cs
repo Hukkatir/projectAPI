@@ -1,8 +1,8 @@
-﻿using BusinessLogic.Interfaces;
-using DataAccess.Models;
+﻿using Domian.Interfaces;
+using Domian.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using File = DataAccess.Models.File;
+using File = Domian.Models.File;
 
 namespace projectAPI.Controllers
 {

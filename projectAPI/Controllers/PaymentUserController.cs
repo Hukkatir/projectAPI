@@ -1,5 +1,5 @@
-﻿using BusinessLogic.Interfaces;
-using DataAccess.Models;
+﻿using Domian.Interfaces;
+using Domian.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +21,6 @@ namespace projectAPI.Controllers
             return Ok(await _paymentUserService.GetAll());
         }
 
-        //переделать (украть у вани)
         [HttpGet("{idPayment}/{idUser}")]
         public async Task<IActionResult> GetById(int idPayment, int idUser)
         {

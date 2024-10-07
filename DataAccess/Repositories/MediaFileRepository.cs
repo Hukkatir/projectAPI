@@ -1,5 +1,5 @@
-﻿using DataAccess.Interfaces;
-using DataAccess.Models;
+﻿using Domian.Interfaces;
+using Domian.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

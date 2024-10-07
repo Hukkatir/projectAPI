@@ -1,13 +1,13 @@
-﻿using BusinessLogic.Interfaces;
-using DataAccess.Models;
-using DataAccess.Wrapper;
+﻿using Domian.Interfaces;
+using Domian.Models;
+using Domian.Wrapper;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using File = DataAccess.Models.File;
+using File = Domian.Models.File;
 
 namespace BusinessLogic.Services
 {

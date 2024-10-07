@@ -1,6 +1,6 @@
-﻿using BusinessLogic.Interfaces;
-using DataAccess.Models;
-using DataAccess.Wrapper;
+﻿using Domian.Interfaces;
+using Domian.Models;
+using Domian.Wrapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
