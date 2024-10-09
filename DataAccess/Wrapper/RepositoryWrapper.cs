@@ -201,9 +201,9 @@ namespace DataAccess.Wrapper
             _repoContext = repositoryContext;
         }
 
-        public void Save()
+        public async Task Save()
         { 
-            _repoContext.SaveChanges();
+            await _repoContext.SaveChangesAsync();
         }
 
     }

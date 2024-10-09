@@ -20,40 +20,37 @@ namespace BusinessLogic.Services
             _repositoryWrapper = repositoryWrapper;
         }
 
-        public Task<List<File>> GetAll()
+        public async Task<List<File>> GetAll()
         {
-            return _repositoryWrapper.Files.FindAll().ToListAsync();
+            return await _repositoryWrapper.Files.FindAll();
         }
 
-        public Task<File> GetById(int id)
+        public async Task<File> GetById(int id)
         {
-            var f = _repositoryWrapper.Files
-                .FindByCondition(x => x.FileId == id).First();
-            return Task.FromResult(f);
+            var f = await _repositoryWrapper.Files
+                .FindByCondition(x => x.FileId == id);
+            return f.First();
         }
 
-        public Task Create(File model)
+        public async Task Create(File model)
         {
-            _repositoryWrapper.Files.Create(model);
+            await _repositoryWrapper.Files.Create(model);
             _repositoryWrapper.Save();
-            return Task.CompletedTask;
         }
 
-        public Task Update(File model)
+        public async Task Update(File model)
         {
             _repositoryWrapper.Files.Update(model);
             _repositoryWrapper.Save();
-            return Task.CompletedTask;
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            var f = _repositoryWrapper.Files
-                .FindByCondition(x => x.FileId == id).First();
+            var f = await _repositoryWrapper.Files
+                .FindByCondition(x => x.FileId == id);
 
-            _repositoryWrapper.Files.Delete(f);
+            _repositoryWrapper.Files.Delete(f.First());
             _repositoryWrapper.Save();
-            return Task.CompletedTask;
         }
     }
 }

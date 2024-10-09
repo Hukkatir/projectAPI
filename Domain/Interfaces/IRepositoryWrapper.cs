@@ -23,7 +23,7 @@ namespace Domian.Wrapper
         IRoomRepository Room { get; }
         IRoomsUserRepository RoomsUser { get; }
         IGroupMediumRepository GroupMedium { get; }
-        void Save();
+        Task Save();
 
     }
 }

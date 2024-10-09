@@ -20,40 +20,37 @@ namespace BusinessLogic.Services
             _repositoryWrapper = repositoryWrapper;
         }
 
-        public Task<List<GroupMedium>> GetAll()
+        public async Task<List<GroupMedium>> GetAll()
         {
-            return _repositoryWrapper.GroupMedium.FindAll().ToListAsync();
+            return await _repositoryWrapper.GroupMedium.FindAll();
         }
 
-        public Task<GroupMedium> GetById(int id)
+        public async Task<GroupMedium> GetById(int id)
         {
-            var groupMedium = _repositoryWrapper.GroupMedium
-                .FindByCondition(x => x.GroupId == id).First();
-            return Task.FromResult(groupMedium);
+            var groupMedium = await _repositoryWrapper.GroupMedium
+                .FindByCondition(x => x.GroupId == id);
+            return groupMedium.First();
         }
 
-        public Task Create(GroupMedium model)
+        public async Task Create(GroupMedium model)
         {
-            _repositoryWrapper.GroupMedium.Create(model);
+            await _repositoryWrapper.GroupMedium.Create(model);
             _repositoryWrapper.Save();
-            return Task.CompletedTask;
         }
 
-        public Task Update(GroupMedium model)
+        public async Task Update(GroupMedium model)
         {
             _repositoryWrapper.GroupMedium.Update(model);
             _repositoryWrapper.Save();
-            return Task.CompletedTask;
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            var groupMedium = _repositoryWrapper.GroupMedium
-                .FindByCondition(x => x.GroupId == id).First();
+            var groupMedium = await _repositoryWrapper.GroupMedium
+                .FindByCondition(x => x.GroupId == id);
 
-            _repositoryWrapper.GroupMedium.Delete(groupMedium);
+            _repositoryWrapper.GroupMedium.Delete(groupMedium.First());
             _repositoryWrapper.Save();
-            return Task.CompletedTask;
         }
     }
 }

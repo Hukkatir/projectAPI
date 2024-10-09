@@ -19,40 +19,37 @@ namespace BusinessLogic.Services
             _repositoryWrapper = repositoryWrapper;
         }
 
-        public Task<List<MessagesUser>> GetAll()
+        public async Task<List<MessagesUser>> GetAll()
         {
-            return _repositoryWrapper.MessagesUser.FindAll().ToListAsync();
+            return await _repositoryWrapper.MessagesUser.FindAll();
         }
 
-        public Task<MessagesUser> GetById(int id)
+        public async Task<MessagesUser> GetById(int id)
         {
-            var messagesUser = _repositoryWrapper.MessagesUser
-                .FindByCondition(x => x.MessageId == id).First();
-            return Task.FromResult(messagesUser);
+            var messagesUser = await _repositoryWrapper.MessagesUser
+                .FindByCondition(x => x.MessageId == id);
+            return messagesUser.First();
         }
 
-        public Task Create(MessagesUser model)
+        public async Task Create(MessagesUser model)
         {
-            _repositoryWrapper.MessagesUser.Create(model);
+            await _repositoryWrapper.MessagesUser.Create(model);
             _repositoryWrapper.Save();
-            return Task.CompletedTask;
         }
 
-        public Task Update(MessagesUser model)
+        public async Task Update(MessagesUser model)
         {
             _repositoryWrapper.MessagesUser.Update(model);
             _repositoryWrapper.Save();
-            return Task.CompletedTask;
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            var messagesUser = _repositoryWrapper.MessagesUser
-                .FindByCondition(x => x.MessageId == id).First();
+            var messagesUser = await _repositoryWrapper.MessagesUser
+                .FindByCondition(x => x.MessageId == id);
 
-            _repositoryWrapper.MessagesUser.Delete(messagesUser);
+            _repositoryWrapper.MessagesUser.Delete(messagesUser.First());
             _repositoryWrapper.Save();
-            return Task.CompletedTask;
         }
     }
 }

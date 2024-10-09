@@ -19,40 +19,37 @@ namespace BusinessLogic.Services
             _repositoryWrapper = repositoryWrapper;
         }
 
-        public Task<List<CommentRate>> GetAll()
+        public async Task<List<CommentRate>> GetAll()
         {
-            return _repositoryWrapper.CommentRate.FindAll().ToListAsync();
+            return await _repositoryWrapper.CommentRate.FindAll();
         }
 
-        public Task<CommentRate> GetById(int id)
+        public async Task<CommentRate> GetById(int id)
         {
-            var commentRate = _repositoryWrapper.CommentRate
-                .FindByCondition(x => x.CommentRateId == id).First();
-            return Task.FromResult(commentRate);
+            var commentRate = await _repositoryWrapper.CommentRate
+                .FindByCondition(x => x.CommentRateId == id);
+            return commentRate.First();
         }
 
-        public Task Create(CommentRate model)
+        public async Task Create(CommentRate model)
         {
-            _repositoryWrapper.CommentRate.Create(model);
+            await _repositoryWrapper.CommentRate.Create(model);
             _repositoryWrapper.Save();
-            return Task.CompletedTask;
         }
 
-        public Task Update(CommentRate model)
+        public async Task Update(CommentRate model)
         {
             _repositoryWrapper.CommentRate.Update(model);
             _repositoryWrapper.Save();
-            return Task.CompletedTask;
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            var commentRate = _repositoryWrapper.CommentRate
-                .FindByCondition(x => x.CommentRateId == id).First();
+            var commentRate = await _repositoryWrapper.CommentRate
+                .FindByCondition(x => x.CommentRateId == id);
 
-            _repositoryWrapper.CommentRate.Delete(commentRate);
+            _repositoryWrapper.CommentRate.Delete(commentRate.First());
             _repositoryWrapper.Save();
-            return Task.CompletedTask;
         }
     }
 }

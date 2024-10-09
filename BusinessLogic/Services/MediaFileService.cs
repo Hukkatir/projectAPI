@@ -19,40 +19,37 @@ namespace BusinessLogic.Services
             _repositoryWrapper = repositoryWrapper;
         }
 
-        public Task<List<MediaFile>> GetAll()
+        public async Task<List<MediaFile>> GetAll()
         {
-            return _repositoryWrapper.MediaFile.FindAll().ToListAsync();
+            return await _repositoryWrapper.MediaFile.FindAll();
         }
 
-        public Task<MediaFile> GetById(int id)
+        public async Task<MediaFile> GetById(int id)
         {
-            var mediafile = _repositoryWrapper.MediaFile
-                .FindByCondition(x => x.MediaFileId == id).First();
-            return Task.FromResult(mediafile);
+            var mediafile = await _repositoryWrapper.MediaFile
+                .FindByCondition(x => x.MediaFileId == id);
+            return mediafile.First();
         }
 
-        public Task Create(MediaFile model)
+        public async Task Create(MediaFile model)
         {
-            _repositoryWrapper.MediaFile.Create(model);
+            await _repositoryWrapper.MediaFile.Create(model);
             _repositoryWrapper.Save();
-            return Task.CompletedTask;
         }
 
-        public Task Update(MediaFile model)
+        public async Task Update(MediaFile model)
         {
             _repositoryWrapper.MediaFile.Update(model);
             _repositoryWrapper.Save();
-            return Task.CompletedTask;
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            var mediafile = _repositoryWrapper.MediaFile
-                .FindByCondition(x => x.MediaFileId == id).First();
+            var mediafile = await _repositoryWrapper.MediaFile
+                .FindByCondition(x => x.MediaFileId == id);
 
-            _repositoryWrapper.MediaFile.Delete(mediafile);
+            _repositoryWrapper.MediaFile.Delete(mediafile.First());
             _repositoryWrapper.Save();
-            return Task.CompletedTask;
         }
     }
 }

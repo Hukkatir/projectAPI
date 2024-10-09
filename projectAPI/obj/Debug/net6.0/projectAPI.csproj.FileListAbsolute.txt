@@ -68,3 +68,7 @@ C:\Users\dudin\Desktop\учеба\Ларионов\апишка и все так
 C:\Users\dudin\Desktop\учеба\Ларионов\апишка и все такое\projectAPI\projectAPI\bin\Debug\net6.0\DataAccess.dll
 C:\Users\dudin\Desktop\учеба\Ларионов\апишка и все такое\projectAPI\projectAPI\bin\Debug\net6.0\BusinessLogic.pdb
 C:\Users\dudin\Desktop\учеба\Ларионов\апишка и все такое\projectAPI\projectAPI\bin\Debug\net6.0\DataAccess.pdb
+C:\Users\dudin\Desktop\учеба\Ларионов\апишка и все такое\projectAPI\projectAPI\bin\Debug\net6.0\Humanizer.dll
+C:\Users\dudin\Desktop\учеба\Ларионов\апишка и все такое\projectAPI\projectAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\dudin\Desktop\учеба\Ларионов\апишка и все такое\projectAPI\projectAPI\bin\Debug\net6.0\Domain.dll
+C:\Users\dudin\Desktop\учеба\Ларионов\апишка и все такое\projectAPI\projectAPI\bin\Debug\net6.0\Domain.pdb

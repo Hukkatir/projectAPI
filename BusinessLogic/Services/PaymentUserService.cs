@@ -19,40 +19,37 @@ namespace BusinessLogic.Services
             _repositoryWrapper = repositoryWrapper;
         }
 
-        public Task<List<PaymentUser>> GetAll()
+        public async Task<List<PaymentUser>> GetAll()
         {
-            return _repositoryWrapper.PaymentUser.FindAll().ToListAsync();
+            return await _repositoryWrapper.PaymentUser.FindAll();
         }
 
-        public Task<PaymentUser> GetById(int idPayment, int idUser)
+        public async Task<PaymentUser> GetById(int idPayment, int idUser)
         {
-            var paymentUser = _repositoryWrapper.PaymentUser
-                .FindByCondition(x => x.PaymentId == idPayment && x.UserId == idUser).First();
-            return Task.FromResult(paymentUser);
+            var paymentUser = await _repositoryWrapper.PaymentUser
+                .FindByCondition(x => x.PaymentId == idPayment && x.UserId == idUser);
+            return paymentUser.First();
         }
 
-        public Task Create(PaymentUser model)
+        public async Task Create(PaymentUser model)
         {
-            _repositoryWrapper.PaymentUser.Create(model);
+            await _repositoryWrapper.PaymentUser.Create(model);
             _repositoryWrapper.Save();
-            return Task.CompletedTask;
         }
 
-        public Task Update(PaymentUser model)
+        public async Task Update(PaymentUser model)
         {
             _repositoryWrapper.PaymentUser.Update(model);
             _repositoryWrapper.Save();
-            return Task.CompletedTask;
         }
 
-        public Task Delete(int idPayment, int idUser)
+        public async Task Delete(int idPayment, int idUser)
         {
-            var paymentUser = _repositoryWrapper.PaymentUser
-                .FindByCondition(x => x.PaymentId == idPayment && x.UserId == idUser).First();
+            var paymentUser = await _repositoryWrapper.PaymentUser
+                .FindByCondition(x => x.PaymentId == idPayment && x.UserId == idUser);
 
-            _repositoryWrapper.PaymentUser.Delete(paymentUser);
+            _repositoryWrapper.PaymentUser.Delete(paymentUser.First());
             _repositoryWrapper.Save();
-            return Task.CompletedTask;
         }
     }
 }

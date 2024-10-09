@@ -15,7 +15,7 @@ namespace projectAPI
 
             builder.Services.AddDbContext<projectDBContext>(
                 optionsAction:options => options.UseSqlServer(
-                    connectionString:"Server=DESKTOP-CJMJ3I2;Database=projectDB; Trusted_Connection = True;"));
+                    connectionString:"Server=DESKTOP-CJMJ3I2;Database=testBD; Trusted_Connection = True;"));
 
             builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 

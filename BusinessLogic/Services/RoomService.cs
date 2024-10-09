@@ -19,40 +19,37 @@ namespace BusinessLogic.Services
             _repositoryWrapper = repositoryWrapper;
         }
 
-        public Task<List<Room>> GetAll()
+        public async Task<List<Room>> GetAll()
         {
-            return _repositoryWrapper.Room.FindAll().ToListAsync();
+            return await _repositoryWrapper.Room.FindAll();
         }
 
-        public Task<Room> GetById(int id)
+        public async Task<Room> GetById(int id)
         {
-            var room = _repositoryWrapper.Room
-                .FindByCondition(x => x.RoomId == id).First();
-            return Task.FromResult(room);
+            var room = await _repositoryWrapper.Room
+                .FindByCondition(x => x.RoomId == id);
+            return room.First();
         }
 
-        public Task Create(Room model)
+        public async Task Create(Room model)
         {
-            _repositoryWrapper.Room.Create(model);
+            await _repositoryWrapper.Room.Create(model);
             _repositoryWrapper.Save();
-            return Task.CompletedTask;
         }
 
-        public Task Update(Room model)
+        public async Task Update(Room model)
         {
             _repositoryWrapper.Room.Update(model);
             _repositoryWrapper.Save();
-            return Task.CompletedTask;
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            var room = _repositoryWrapper.Room
-                .FindByCondition(x => x.RoomId == id).First();
+            var room = await _repositoryWrapper.Room
+                .FindByCondition(x => x.RoomId == id);
 
-            _repositoryWrapper.Room.Delete(room);
+            _repositoryWrapper.Room.Delete(room.First());
             _repositoryWrapper.Save();
-            return Task.CompletedTask;
         }
     }
 }

@@ -19,40 +19,37 @@ namespace BusinessLogic.Services
             _repositoryWrapper = repositoryWrapper;
         }
 
-        public Task<List<MyRating>> GetAll()
+        public async Task<List<MyRating>> GetAll()
         {
-            return _repositoryWrapper.MyRating.FindAll().ToListAsync();
+            return await _repositoryWrapper.MyRating.FindAll();
         }
 
-        public Task<MyRating> GetById(int id)
+        public async Task<MyRating> GetById(int id)
         {
-            var rating = _repositoryWrapper.MyRating
-                .FindByCondition(x => x.RatingId == id).First();
-            return Task.FromResult(rating);
+            var rating = await _repositoryWrapper.MyRating
+                .FindByCondition(x => x.RatingId == id);
+            return rating.First();
         }
 
-        public Task Create(MyRating model)
+        public async Task Create(MyRating model)
         {
-            _repositoryWrapper.MyRating.Create(model);
+            await _repositoryWrapper.MyRating.Create(model);
             _repositoryWrapper.Save();
-            return Task.CompletedTask;
         }
 
-        public Task Update(MyRating model)
+        public async Task Update(MyRating model)
         {
             _repositoryWrapper.MyRating.Update(model);
             _repositoryWrapper.Save();
-            return Task.CompletedTask;
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            var rating = _repositoryWrapper.MyRating
-                .FindByCondition(x => x.RatingId == id).First();
+            var rating = await _repositoryWrapper.MyRating
+                .FindByCondition(x => x.RatingId == id);
 
-            _repositoryWrapper.MyRating.Delete(rating);
+            _repositoryWrapper.MyRating.Delete(rating.First());
             _repositoryWrapper.Save();
-            return Task.CompletedTask;
         }
     }
 }
