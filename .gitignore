@@ -1,0 +1,9 @@
+.vs/
+BusinessLogic/obj/
+BusinessLogic/bin/
+DataAccess/obj/
+DataAccess/bin/
+Domain/obj/
+Domain/bin/
+projectAPI/obj/
+projectAPI/bin/
