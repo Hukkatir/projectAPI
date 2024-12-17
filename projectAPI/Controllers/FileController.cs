@@ -1,7 +1,9 @@
 ﻿using Domain.Interfaces;
 using Domain.Models;
+using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using projectAPI.Contracts.File;
 using File = Domain.Models.File;
 
 namespace projectAPI.Controllers
@@ -17,14 +19,16 @@ namespace projectAPI.Controllers
         }
 
         /// <summary>
-        /// Получение информации о всех файлах
+        /// Получение всех файлов
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _fileService.GetAll());
+            var Dto = await _fileService.GetAll();
+            return Ok(Dto.Adapt<List<GetFileResponse>>());
         }
+
 
         /// <summary>
         /// Получение информации о файле по id
@@ -34,7 +38,8 @@ namespace projectAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok(await _fileService.GetById(id));
+            var Dto = await _fileService.GetById(id);
+            return Ok(Dto.Adapt<GetFileResponse>());
         }
 
         /// <summary>
@@ -48,17 +53,17 @@ namespace projectAPI.Controllers
         ///         "fileName": "9-1-1 s08e01",
         ///         "fileUrl": "https://hdrezka1twwpb.org/series/drama/26609-911-sluzhba-spaseniya-2018.html#t:35-s:8-e:1",
         ///         "categoryFileId": 1,
-        ///         "createdBy": 5,
-        ///         "createdDateTime": "2024-10-23T10:21:54.302Z"
+        ///         "createdBy": 5
         ///     }
         ///     
         /// </remarks>
         /// <param name="f">Файл</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Add(File f)
+        public async Task<IActionResult> Add(CreateFileRequest f)
         {
-            await _fileService.Create(f);
+            var Dto = f.Adapt<File>();
+            await _fileService.Create(Dto);
             return Ok();
         }
 
@@ -83,9 +88,10 @@ namespace projectAPI.Controllers
         /// <param name="f">Файл</param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IActionResult> Update(File f)
+        public async Task<IActionResult> Update(GetFileResponse f)
         {
-            await _fileService.Update(f);
+            var Dto = f.Adapt<File>();
+            await _fileService.Create(Dto);
             return Ok();
         }
 

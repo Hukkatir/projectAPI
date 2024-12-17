@@ -1,7 +1,9 @@
 ﻿using Domain.Interfaces;
 using Domain.Models;
+using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using projectAPI.Contracts.Payment;
 
 namespace projectAPI.Controllers
 {
@@ -24,7 +26,8 @@ namespace projectAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await  _paymentService.GetAll());
+            var Dto = await _paymentService.GetAll();
+            return Ok(Dto.Adapt<List<GetPaymentResponse>>());
         }
 
         /// <summary>
@@ -37,7 +40,8 @@ namespace projectAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok(await  _paymentService.GetById(id));
+            var Dto = await _paymentService.GetById(id);
+            return Ok(Dto.Adapt<GetPaymentResponse>());
         }
 
         /// <summary>
@@ -48,7 +52,6 @@ namespace projectAPI.Controllers
         ///
         ///     POST /Todo
         ///     {
-        ///       "paymentId": 5,
         ///       "cardNumber": "2200255555555555",
         ///       "cvv": "871",
         ///       "date": "2024-10-22"
@@ -60,9 +63,10 @@ namespace projectAPI.Controllers
 
         // POST api/<PaymentController>
         [HttpPost]
-        public async Task<IActionResult> Add(Payment payment)
+        public async Task<IActionResult> Add(CreatePaymentRequest payment)
         {
-            await  _paymentService.Create(payment);
+            var paymentDto = payment.Adapt<Payment>();
+            await _paymentService.Create(paymentDto);
             return Ok();
         }
 
@@ -86,9 +90,11 @@ namespace projectAPI.Controllers
 
         // PUT api/<PaymentController>
         [HttpPut]
-        public async Task<IActionResult> Update(Payment payment)
+        [HttpPut]
+        public async Task<IActionResult> Update(GetPaymentResponse payment)
         {
-            await  _paymentService.Update(payment);
+            var Dto = payment.Adapt<Payment>();
+            await _paymentService.Update(Dto);
             return Ok();
         }
 

@@ -1,7 +1,9 @@
 ﻿using Domain.Interfaces;
 using Domain.Models;
+using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using projectAPI.Contracts.MyRating;
 
 namespace projectAPI.Controllers
 {
@@ -23,7 +25,8 @@ namespace projectAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _myRatingService.GetAll());
+            var Dto = await _myRatingService.GetAll();
+            return Ok(Dto.Adapt<List<GetMyRatingResponse>>());
         }
 
         /// <summary>
@@ -36,7 +39,8 @@ namespace projectAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok(await _myRatingService.GetById(id));
+            var Dto = await _myRatingService.GetById(id);
+            return Ok(Dto.Adapt<GetMyRatingResponse>());
         }
 
         /// <summary>
@@ -60,9 +64,10 @@ namespace projectAPI.Controllers
 
         // POST api/<MyRatingController>
         [HttpPost]
-        public async Task<IActionResult> Add(MyRating myRating)
+        public async Task<IActionResult> Add(CreateMyRatingRequest myRating)
         {
-            await _myRatingService.Create(myRating);
+            var Dto = myRating.Adapt<MyRating>();
+            await _myRatingService.Create(Dto);
             return Ok();
         }
 
@@ -79,6 +84,7 @@ namespace projectAPI.Controllers
         ///          "mediaId": 1,
         ///          "rating": 1,
         ///          "createdDateTime": "2024-10-22T10:07:05.
+        ///          "updatedDateTime": "2024-12-17T14:14:23.950Z" 
         ///      }
         ///      
         /// </remarks>
@@ -87,9 +93,11 @@ namespace projectAPI.Controllers
 
         // PUT api/<MyRatingController>
         [HttpPut]
-        public async Task<IActionResult> Update(MyRating myRating)
+        public async Task<IActionResult> Update(GetMyRatingResponse myRating)
         {
-            await _myRatingService.Update(myRating);
+            var Dto = myRating.Adapt<MyRating>();
+            await _myRatingService.Update(Dto);
+            Dto.UpdatedDateTime = DateTime.Now;
             return Ok();
         }
 

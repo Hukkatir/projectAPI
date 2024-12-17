@@ -66,10 +66,10 @@ namespace projectAPI.Controllers
 
         // POST api/<UsersController>
         [HttpPost]
-        public async Task<IActionResult> Add(CreateUserRequest request)
+        public async Task<IActionResult> Add(CreateUserRequest user)
         {
-            var userDto = request.Adapt<User>();
-            await _userService.Create(userDto);
+            var Dto = user.Adapt<User>();
+            await _userService.Create(Dto);
             return Ok();
         }
 
@@ -102,11 +102,11 @@ namespace projectAPI.Controllers
 
         // PUT api/<UserController>
         [HttpPut]
-        public async Task<IActionResult> Update(GetUserResponse response) 
+        public async Task<IActionResult> Update(GetUserResponse user) 
         {
-            var Dto = response.Adapt<User>();
+            var Dto = user.Adapt<User>();
             await _userService.Update(Dto);
-            Dto.UpdatedDateTime = DateTime.Now;
+            Dto.UpdatedDateTime = DateTime.UtcNow;
             return Ok();
         }
         /// <summary>

@@ -1,7 +1,13 @@
-﻿using Domain.Interfaces;
+﻿using BusinessLogic.Services;
+using Domain.Interfaces;
 using Domain.Models;
+using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using projectAPI.Contracts.GroupMedium;
+using projectAPI.Contracts.MediaFile;
+using projectAPI.Contracts.Medium;
+using projectAPI.Contracts.User;
 
 namespace projectAPI.Controllers
 {
@@ -22,7 +28,8 @@ namespace projectAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _mediumService.GetAll());
+            var Dto = await _mediumService.GetAll();
+            return Ok(Dto.Adapt<List<GetMediumResponse>>());
         }
 
         /// <summary>
@@ -33,7 +40,8 @@ namespace projectAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok(await _mediumService.GetById(id));
+            var Dto = await _mediumService.GetById(id);
+            return Ok(Dto.Adapt<GetMediumResponse>());
         }
 
         /// <summary>
@@ -61,9 +69,11 @@ namespace projectAPI.Controllers
         /// <param name="medium">Медиа</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Add(Medium medium)
+        public async Task<IActionResult> Add(CreateMediaFileRequest medium)
         {
-            await _mediumService.Create(medium);
+
+            var Dto = medium.Adapt<Medium>();
+            await _mediumService.Create(Dto);
             return Ok();
         }
 
@@ -93,9 +103,11 @@ namespace projectAPI.Controllers
         /// <param name="medium">Медиа</param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IActionResult> Update(Medium medium)
+        public async Task<IActionResult> Update(GetMediumResponse medium)
         {
-            await _mediumService.Update(medium);
+            var Dto = medium.Adapt<Medium>();
+            Dto.UpdatedDateTime = DateTime.UtcNow;
+            await _mediumService.Update(Dto);
             return Ok();
         }
 

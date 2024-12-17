@@ -1,7 +1,9 @@
 ﻿using Domain.Interfaces;
 using Domain.Models;
+using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using projectAPI.Contracts.PaymentUser;
 
 namespace projectAPI.Controllers
 {
@@ -24,7 +26,8 @@ namespace projectAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _paymentUserService.GetAll());
+            var Dto = await _paymentUserService.GetAll();
+            return Ok(Dto.Adapt<List<GetPaymentUserResponse>>());
         }
 
         /// <summary>
@@ -38,7 +41,8 @@ namespace projectAPI.Controllers
         [HttpGet("{{idPayment}}/{{idUser}}")]
         public async Task<IActionResult> GetById(int idPayment, int idUser)
         {
-            return Ok(await _paymentUserService.GetById(idPayment, idUser));
+            var Dto = await _paymentUserService.GetById(idPayment, idUser);
+            return Ok(Dto.Adapt<GetPaymentUserResponse>());
         }
 
         /// <summary>
@@ -60,9 +64,10 @@ namespace projectAPI.Controllers
 
         // POST api/<PaymentUserController>
         [HttpPost]
-        public async Task<IActionResult> Add(PaymentUser paymentUser)
+        public async Task<IActionResult> Add(CreatePaymentUserRequest paymentUser)
         {
-            await _paymentUserService.Create(paymentUser);
+            var paymentUserDto = paymentUser.Adapt<PaymentUser>();
+            await _paymentUserService.Create(paymentUserDto);
             return Ok();
         }
 
@@ -85,9 +90,10 @@ namespace projectAPI.Controllers
 
         // PUT api/<PaymentUserController>
         [HttpPut]
-        public async Task<IActionResult> Update(PaymentUser paymentUser)
+        public async Task<IActionResult> Update(GetPaymentUserResponse paymentUser)
         {
-            await _paymentUserService.Update(paymentUser);
+            var Dto = paymentUser.Adapt<PaymentUser>();
+            await _paymentUserService.Update(Dto);
             return Ok();
         }
 

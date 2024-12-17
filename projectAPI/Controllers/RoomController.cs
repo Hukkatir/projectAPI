@@ -1,7 +1,9 @@
 ﻿using Domain.Interfaces;
 using Domain.Models;
+using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using projectAPI.Contracts.Room;
 
 namespace projectAPI.Controllers
 {
@@ -23,7 +25,8 @@ namespace projectAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _roomService.GetAll());
+            var Dto = await _roomService.GetAll();
+            return Ok(Dto.Adapt<List<GetRoomResponse>>());
         }
 
         /// <summary>
@@ -35,7 +38,8 @@ namespace projectAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok(await _roomService.GetById(id));
+            var Dto = await _roomService.GetById(id);
+            return Ok(Dto.Adapt<GetRoomResponse>());
         }
 
         /// <summary>
@@ -46,11 +50,9 @@ namespace projectAPI.Controllers
         /// 
         ///     POST /Todo
         ///     {
-        ///         "roomId": 5,
         ///         "roomName": "Крутая комната для просмотра аниме :)",
         ///         "mediaId": 3,
         ///         "creatorId": 1
-        ///         "createdDateTime": "2024-10-21T12:46:44.000Z"
         ///     }
         ///     
         /// </remarks>
@@ -59,9 +61,10 @@ namespace projectAPI.Controllers
 
         // POST api/<RoomController>
         [HttpPost]
-        public async Task<IActionResult> Add(Room room)
+        public async Task<IActionResult> Add(CreateRoomRequest room)
         {
-            await _roomService.Create(room);
+            var roomDto = room.Adapt<Room>();
+            await _roomService.Create(roomDto);
             return Ok();
         }
 
@@ -87,9 +90,10 @@ namespace projectAPI.Controllers
 
         // PUT api/<RoomController>
         [HttpPut]
-        public async Task<IActionResult> Update(Room room)
+        public async Task<IActionResult> Update(GetRoomResponse room)
         {
-            await _roomService.Update(room);
+            var Dto = room.Adapt<Room>();
+            await _roomService.Update(Dto);
             return Ok();
         }
 

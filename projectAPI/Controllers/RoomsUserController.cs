@@ -1,7 +1,9 @@
 ﻿using Domain.Models;
 using Domian.Interfaces;
+using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using projectAPI.Contracts.RoomsUser;
 
 namespace projectAPI.Controllers
 {
@@ -18,13 +20,14 @@ namespace projectAPI.Controllers
         /// <summary>
         /// Получение всех записей о присоединениях к комнатам
         /// </summary>
-        /// <returns>Список всех записей о присоединениях к комнатам</returns>
+        /// <returns></returns>
 
         // GET api/<RoomsUserController>
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _roomsUserService.GetAll());
+            var Dto = await _roomsUserService.GetAll();
+            return Ok(Dto.Adapt<List<GetRoomsUserResponse>>());
         }
         /// <summary>
         /// Получение записи о присоеденении к комнате по id комнаты и id пользователя 
@@ -37,7 +40,8 @@ namespace projectAPI.Controllers
         [HttpGet("{{idRoom}}/{{idUser}}")]
         public async Task<IActionResult> GetById(int idRoom, int idUser)
         {
-            return Ok(await _roomsUserService.GetById(idRoom, idUser));
+            var Dto = await _roomsUserService.GetById(idRoom, idUser);
+            return Ok(Dto.Adapt<GetRoomsUserResponse>());
         }
         /// <summary>
         /// Добавление присоединения нового пользователя к комнате 
@@ -47,7 +51,6 @@ namespace projectAPI.Controllers
         /// 
         ///     POST /Todo
         ///     {
-        ///        "joinedDateTime": "2024-10-11T12:31:58.873Z",
         ///        "roomId": 15,
         ///        "userId": 5
         ///     }
@@ -58,9 +61,10 @@ namespace projectAPI.Controllers
 
         // POST api/<RoomsUserController>
         [HttpPost]
-        public async Task<IActionResult> Add(RoomsUser roomUser)
+        public async Task<IActionResult> Add(CreateRoomsUserRequest roomsUser)
         {
-            await _roomsUserService.Create(roomUser);
+            var roomsUserDto = roomsUser.Adapt<RoomsUser>();
+            await _roomsUserService.Create(roomsUserDto);
             return Ok();
         }
 
@@ -84,9 +88,10 @@ namespace projectAPI.Controllers
 
         // PUT api/<RoomsUserController>
         [HttpPut]
-        public async Task<IActionResult> Update(RoomsUser roomUser)
+        public async Task<IActionResult> Update(GetRoomsUserResponse roomsUser)
         {
-            await _roomsUserService.Update(roomUser);
+            var Dto = roomsUser.Adapt<RoomsUser>();
+            await _roomsUserService.Update(Dto);
             return Ok();
         }
 

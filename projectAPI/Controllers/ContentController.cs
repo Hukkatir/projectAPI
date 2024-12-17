@@ -1,7 +1,9 @@
 ﻿using Domain.Interfaces;
 using Domain.Models;
+using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using projectAPI.Contracts.Content;
 
 namespace projectAPI.Controllers
 {
@@ -16,24 +18,24 @@ namespace projectAPI.Controllers
         }
 
         /// <summary>
-        /// Получение информации о всем контенте 
+        /// Получение всего контента
         /// </summary>
-        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _contentService.GetAll());
+            var Dto = await _contentService.GetAll();
+            return Ok(Dto.Adapt<List<GetContentResponse>>());
         }
-
         /// <summary>
-        /// Получение информации о контенте по id
+        /// Получение контента по id
         /// </summary>
         /// <param name="id">Идентификатор контента</param>
         /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok(await _contentService.GetById(id));
+            var Dto = await _contentService.GetById(id);
+            return Ok(Dto.Adapt<GetContentResponse>());
         }
 
         /// <summary>
@@ -49,17 +51,17 @@ namespace projectAPI.Controllers
         ///         "categoryContentId": 3,
         ///         "title": "Провал Джокера 2",
         ///         "contentText": "В мировом прокате с оглушительным треском продолжает проваливаться «Джокер: Безумие на двоих». Продолжение хитового фильма 2019 года, который взял «Золотого льва» на Венецианском фестивале, а затем принес оскаровскую статуэтку Хоакину Фениксу, здорово разозлило фанатов и разочаровало критиков. Но все это часть плана Тодда Филлипса, который сам выступил в роли Джокера и провернул беспрецедентную акцию по уничтожению кинокомикса. Может, пора объяснить, почему «Безумие на двоих» вызывает восхищение несмотря ни на что?",
-        ///         "createdBy": 1,
-        ///         "createdDateTime": "2024-10-23T10:32:26.261Z"
+        ///         "createdBy": 1
         ///     }
         ///     
         /// </remarks>
-        /// <param name="content">Контент</param>
+        /// <param name="content">Rонтент</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Add(Content content)
+        public async Task<IActionResult> Add(CreateContentRequest content)
         {
-            await _contentService.Create(content);
+            var Dto = content.Adapt<Content>();
+            await _contentService.Create(Dto);
             return Ok();
         }
         /// <summary>
@@ -76,22 +78,27 @@ namespace projectAPI.Controllers
         ///         "title": "Вы не поймете! Почему сиквел «Джокера» — главный поп-культурный феномен года",
         ///         "contentText": "В мировом прокате с оглушительным треском продолжает проваливаться «Джокер: Безумие на двоих». Продолжение хитового фильма 2019 года, который взял «Золотого льва» на Венецианском фестивале, а затем принес оскаровскую статуэтку Хоакину Фениксу, здорово разозлило фанатов и разочаровало критиков. Но все это часть плана Тодда Филлипса, который сам выступил в роли Джокера и провернул беспрецедентную акцию по уничтожению кинокомикса. Может, пора объяснить, почему «Безумие на двоих» вызывает восхищение несмотря ни на что?",
         ///         "createdBy": 1,
-        ///         "createdDateTime": "2024-10-23T10:32:26.261Z",
-        ///         "updatedBy": 5,
-        ///         "updatedDateTime": "2024-11-23T10:32:26.261Z"
+        ///         "createdDateTime": "2024-10-10T09:30:58.178Z",
+        ///         "updatedBy": 2,
+        ///         "updatedDateTime": "2024-11-01T09:32:18.238Z",
+        ///         "deletedBy": 10,
+        ///         "deletedDateTime": null
         ///     }
-        ///     
+        ///   
         /// </remarks>
         /// <param name="content">Контент</param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IActionResult> Update(Content content)
+        public async Task<IActionResult> Update(GetContentResponse content)
         {
-            await _contentService.Update(content);
+            var Dto = content.Adapt<Content>();
+            await _contentService.Update(Dto);
+            Dto.UpdatedDateTime = DateTime.Now;
             return Ok();
         }
+
         /// <summary>
-        /// Удаление контента
+        /// Удаление контента по id
         /// </summary>
         /// <param name="id">Идентификатор контента</param>
         /// <returns></returns>

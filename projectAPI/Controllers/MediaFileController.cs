@@ -1,7 +1,11 @@
-﻿using Domain.Interfaces;
+﻿using BusinessLogic.Services;
+using Domain.Interfaces;
 using Domain.Models;
+using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using projectAPI.Contracts.MediaFile;
+using projectAPI.Contracts.User;
 
 namespace projectAPI.Controllers
 {
@@ -25,7 +29,8 @@ namespace projectAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _mediaFileService.GetAll());
+            var Dto = await _mediaFileService.GetAll();
+            return Ok(Dto.Adapt<List<GetMediaFileResponse>>());
         }
 
         /// <summary>
@@ -36,7 +41,8 @@ namespace projectAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok(await _mediaFileService.GetById(id));
+            var Dto = await _mediaFileService.GetById(id);
+            return Ok(Dto.Adapt<GetMediaFileResponse>());
         }
 
         /// <summary>
@@ -47,7 +53,6 @@ namespace projectAPI.Controllers
         ///     
         ///     POST /Todo
         ///     {
-        ///         "mediaFileId": 5,
         ///         "mediaId": 1,
         ///         "fileId": 5,
         ///         "mediaFileName": "9-1-1_s08e01"
@@ -57,9 +62,10 @@ namespace projectAPI.Controllers
         /// <param name="mediafile">Медиафайл</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Add(MediaFile mediafile)
+        public async Task<IActionResult> Add(CreateMediaFileRequest mediafile)
         {
-            await _mediaFileService.Create(mediafile);
+            var Dto = mediafile.Adapt<MediaFile>();
+            await _mediaFileService.Create(Dto);
             return Ok();
         }
 
@@ -82,10 +88,12 @@ namespace projectAPI.Controllers
         /// <param name="mediafile">Медиафайл</param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IActionResult> Update(MediaFile mediafile)
+        public async Task<IActionResult> Update(GetMediaFileResponse mediafile)
         {
-            await _mediaFileService.Update(mediafile);
+            var Dto = mediafile.Adapt<MediaFile>();
+            await _mediaFileService.Update(Dto);
             return Ok();
+
         }
 
         /// <summary>

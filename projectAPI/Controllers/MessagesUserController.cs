@@ -1,7 +1,9 @@
 ﻿using Domain.Interfaces;
 using Domain.Models;
+using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using projectAPI.Contracts.MessagesUser;
 
 namespace projectAPI.Controllers
 {
@@ -16,7 +18,7 @@ namespace projectAPI.Controllers
         }
 
         /// <summary>
-        /// Получение информации о всех сообщениях
+        ///  Получение всех сообщений пользователей
         /// </summary>
         /// <returns></returns>
 
@@ -24,7 +26,8 @@ namespace projectAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _messagesUserService.GetAll());
+            var Dto = await _messagesUserService.GetAll();
+            return Ok(Dto.Adapt<List<GetMessagesUserResponse>>());
         }
 
         /// <summary>
@@ -37,7 +40,8 @@ namespace projectAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok(await _messagesUserService.GetById(id));
+            var Dto = await _messagesUserService.GetById(id);
+            return Ok(Dto.Adapt<GetMessagesUserResponse>());
         }
 
         /// <summary>
@@ -48,25 +52,25 @@ namespace projectAPI.Controllers
         ///
         ///     POST /Todo
         ///     {
-        ///       "messageId": 50,
         ///       "userId": 10,
         ///       "roomId": 6,
         ///       "statusMessageId": 1,
-        ///       "sendingDate": "2024-10-22T09:16:19.373Z",
         ///       "messageText": "hello there!"
         ///     }
         ///
         /// </remarks>
-        /// <param name="MessagesUser">Пользователь</param>
+        /// <param name="messagesUser">Сообщение</param>
         /// <returns></returns>
 
         // POST api/<MessageUserController>
         [HttpPost]
-        public async Task<IActionResult> Add(MessagesUser MessagesUser)
+        public async Task<IActionResult> Add(CreateMessagesUserRequest messagesUser)
         {
-            await _messagesUserService.Create(MessagesUser);
+            var Dto = messagesUser.Adapt<MessagesUser>();
+            await _messagesUserService.Create(Dto);
             return Ok();
         }
+
 
         /// <summary>
         /// Изменение информации о сообщении
@@ -82,17 +86,20 @@ namespace projectAPI.Controllers
         ///       "statusMessageId": 1,
         ///       "sendingDate": "2024-10-22T09:16:19.373Z",
         ///       "messageText": "bye there!",
+        ///       "updatedDateTime": "2024-12-16T09:30:58.178Z",
         ///     }
         ///
         /// </remarks>
-        /// <param name="MessagesUser">Пользователь</param>
+        /// <param name="messagesUser">Пользователь</param>
         /// <returns></returns>
 
         // PUT api/<MessageUserController>
         [HttpPut]
-        public async Task<IActionResult> Update(MessagesUser MessagesUser)
+        public async Task<IActionResult> Update(GetMessagesUserResponse messagesUser)
         {
-            await _messagesUserService.Update(MessagesUser);
+            var Dto = messagesUser.Adapt<MessagesUser>();
+            await _messagesUserService.Update(Dto);
+            Dto.UpdatedDateTime = DateTime.Now;
             return Ok();
         }
         /// <summary>

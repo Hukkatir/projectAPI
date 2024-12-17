@@ -1,7 +1,10 @@
 ﻿using Domain.Interfaces;
 using Domain.Models;
+using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using projectAPI.Contracts.GroupMedium;
+using projectAPI.Contracts.User;
 
 namespace projectAPI.Controllers
 {
@@ -22,7 +25,8 @@ namespace projectAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _groupMediumService.GetAll());
+            var Dto = await _groupMediumService.GetAll();
+            return Ok(Dto.Adapt<List<GetGroupMediumResponse>>());
         }
 
         /// <summary>
@@ -33,7 +37,8 @@ namespace projectAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok(await _groupMediumService.GetById(id));
+            var Dto = await _groupMediumService.GetById(id);
+            return Ok(Dto.Adapt<GetGroupMediumResponse>());
         }
 
         /// <summary>
@@ -52,14 +57,15 @@ namespace projectAPI.Controllers
         /// <param name="GroupMedium">Группа</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Add(GroupMedium GroupMedium)
+        public async Task<IActionResult> Add(CreateGroupMediumRequest groupMedium)
         {
-            await _groupMediumService.Create(GroupMedium);
+            var Dto = groupMedium.Adapt<GroupMedium>();
+            await _groupMediumService.Create(Dto);
             return Ok();
         }
 
         /// <summary>
-        /// Изменение информацции о группе
+        /// Изменение информации о группе
         /// </summary>
         /// <remarks>
         /// Пример запроса: 
@@ -75,9 +81,10 @@ namespace projectAPI.Controllers
         /// <param name="GroupMedium">Группа</param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IActionResult> Update(GroupMedium GroupMedium)
+        public async Task<IActionResult> Update(CreateGroupMediumRequest groupMedium)
         {
-            await _groupMediumService.Update(GroupMedium);
+            var Dto = groupMedium.Adapt<GroupMedium>();
+            await _groupMediumService.Update(Dto);
             return Ok();
         }
 

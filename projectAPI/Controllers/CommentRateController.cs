@@ -3,6 +3,8 @@ using BusinessLogic.Services;
 using Domain.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using projectAPI.Contracts.CommentRate;
+using Mapster;
 
 namespace projectAPI.Controllers
 {
@@ -22,7 +24,8 @@ namespace projectAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _commentRateService.GetAll());
+            var Dto = await _commentRateService.GetAll();
+            return Ok(Dto.Adapt<List<GetCommentRateResponse>>());
         }
 
         /// <summary>
@@ -33,7 +36,8 @@ namespace projectAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok(await _commentRateService.GetById(id));
+            var Dto = await _commentRateService.GetById(id);
+            return Ok(Dto.Adapt<GetCommentRateResponse>());
         }
 
         /// <summary>
@@ -46,8 +50,7 @@ namespace projectAPI.Controllers
         ///     {
         ///         "commentId": 10,
         ///         "userId": 5,
-        ///         "rating": 7,
-        ///         "createdDateTime": "2024-10-23T11:08:35.167Z"
+        ///         "rating": 7
         ///        
         ///     }
         ///     
@@ -55,9 +58,10 @@ namespace projectAPI.Controllers
         /// <param name="commentRate">Оценка</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Add(CommentRate commentRate)
+        public async Task<IActionResult> Add(CreateCommentRateRequest commentRate)
         {
-            await _commentRateService.Create(commentRate);
+            var commentRateDto = commentRate.Adapt<CommentRate>();
+            await _commentRateService.Create(commentRateDto);
             return Ok();
         }
 
@@ -80,9 +84,11 @@ namespace projectAPI.Controllers
         /// <param name="commentRate">Оценка</param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IActionResult> Update(CommentRate commentRate)
+        public async Task<IActionResult> Update(GetCommentRateResponse commentRate)
         {
-            await _commentRateService.Update(commentRate);
+            var Dto = commentRate.Adapt<CommentRate>();
+            await _commentRateService.Update(Dto);
+            Dto.UpdatedDateTime = DateTime.Now;
             return Ok();
         }
 
