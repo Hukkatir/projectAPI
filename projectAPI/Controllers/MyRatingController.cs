@@ -96,8 +96,8 @@ namespace projectAPI.Controllers
         public async Task<IActionResult> Update(GetMyRatingResponse myRating)
         {
             var Dto = myRating.Adapt<MyRating>();
+            Dto.UpdatedDateTime = DateTime.UtcNow;
             await _myRatingService.Update(Dto);
-            Dto.UpdatedDateTime = DateTime.Now;
             return Ok();
         }
 

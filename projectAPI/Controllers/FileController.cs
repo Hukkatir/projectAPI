@@ -91,7 +91,8 @@ namespace projectAPI.Controllers
         public async Task<IActionResult> Update(GetFileResponse f)
         {
             var Dto = f.Adapt<File>();
-            await _fileService.Create(Dto);
+            Dto.UpdatedDateTime = DateTime.UtcNow;
+            await _fileService.Update(Dto);
             return Ok();
         }
 

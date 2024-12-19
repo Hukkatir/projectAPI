@@ -81,7 +81,7 @@ namespace projectAPI.Controllers
         /// <param name="GroupMedium">Группа</param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IActionResult> Update(CreateGroupMediumRequest groupMedium)
+        public async Task<IActionResult> Update(GetGroupMediumResponse groupMedium)
         {
             var Dto = groupMedium.Adapt<GroupMedium>();
             await _groupMediumService.Update(Dto);

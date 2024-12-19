@@ -98,8 +98,9 @@ namespace projectAPI.Controllers
         public async Task<IActionResult> Update(GetMessagesUserResponse messagesUser)
         {
             var Dto = messagesUser.Adapt<MessagesUser>();
+            Dto.UpdatedDateTime = DateTime.UtcNow;
             await _messagesUserService.Update(Dto);
-            Dto.UpdatedDateTime = DateTime.Now;
+            
             return Ok();
         }
         /// <summary>

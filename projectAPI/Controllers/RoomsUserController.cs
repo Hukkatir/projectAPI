@@ -82,7 +82,7 @@ namespace projectAPI.Controllers
         ///     }
         ///
         /// </remarks>
-        /// <param name="roomUser"></param>
+        /// <param name="roomsUser"></param>
         /// <returns></returns>
         /// 
 

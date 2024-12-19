@@ -92,8 +92,8 @@ namespace projectAPI.Controllers
         public async Task<IActionResult> Update(GetContentResponse content)
         {
             var Dto = content.Adapt<Content>();
+            Dto.UpdatedDateTime = DateTime.UtcNow;
             await _contentService.Update(Dto);
-            Dto.UpdatedDateTime = DateTime.Now;
             return Ok();
         }
 

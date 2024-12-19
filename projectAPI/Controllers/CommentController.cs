@@ -88,8 +88,9 @@ namespace projectAPI.Controllers
         {
             
             var Dto = response.Adapt<Comment>();
+            Dto.UpdatedDateTime = DateTime.UtcNow;
             await _commentService.Update(Dto);
-            Dto.UpdatedDateTime = DateTime.Now;
+            
             return Ok();
         }
 

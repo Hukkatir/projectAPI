@@ -105,8 +105,8 @@ namespace projectAPI.Controllers
         public async Task<IActionResult> Update(GetUserResponse user) 
         {
             var Dto = user.Adapt<User>();
-            await _userService.Update(Dto);
             Dto.UpdatedDateTime = DateTime.UtcNow;
+            await _userService.Update(Dto);
             return Ok();
         }
         /// <summary>

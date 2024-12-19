@@ -60,8 +60,8 @@ namespace projectAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(CreateCommentRateRequest commentRate)
         {
-            var commentRateDto = commentRate.Adapt<CommentRate>();
-            await _commentRateService.Create(commentRateDto);
+            var Dto = commentRate.Adapt<CommentRate>();
+            await _commentRateService.Create(Dto);
             return Ok();
         }
 
@@ -87,8 +87,8 @@ namespace projectAPI.Controllers
         public async Task<IActionResult> Update(GetCommentRateResponse commentRate)
         {
             var Dto = commentRate.Adapt<CommentRate>();
+            Dto.UpdatedDateTime = DateTime.UtcNow;
             await _commentRateService.Update(Dto);
-            Dto.UpdatedDateTime = DateTime.Now;
             return Ok();
         }
 
