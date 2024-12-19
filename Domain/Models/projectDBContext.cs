@@ -99,7 +99,7 @@ namespace Domain.Models
 
             modelBuilder.Entity<CommentRate>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.CommentRateId);
 
                 entity.Property(e => e.CommentId).HasColumnName("CommentID");
 

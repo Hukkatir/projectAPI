@@ -75,9 +75,7 @@ namespace projectAPI.Controllers
         ///     {
         ///         "commentId": 10,
         ///         "userId": 5,
-        ///         "rating": 10,
-        ///         "createdDateTime": "2024-10-23T11:08:35.167Z",
-        ///         "updatedDateTime": "2024-10-23T12:11:23.251Z"
+        ///         "rating": 10
         ///     }
         ///     
         /// </remarks>
