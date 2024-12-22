@@ -1,9 +1,12 @@
 .vs/
-BusinessLogic/obj/
+.vscode/
 BusinessLogic/bin/
-DataAccess/obj/
+BusinessLogic/obj/
+BuisnessLogic.Tests/bin/
+BuisnessLogic.Tests/obj/
 DataAccess/bin/
-Domain/obj/
+DataAccess/obj/
 Domain/bin/
+Domain/obj/
 projectAPI/obj/
 projectAPI/bin/
