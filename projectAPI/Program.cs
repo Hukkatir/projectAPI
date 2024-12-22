@@ -17,7 +17,7 @@ namespace projectAPI
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddDbContext<projectDBContext>(
-                optionsAction: options => options.UseSqlServer(builder.Configuration["ConnectionString"]));
+                options => options.UseSqlServer(builder.Configuration["ConnectionString"]));
             builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 
             builder.Services.AddScoped<IUserService, UserService>();
@@ -70,7 +70,7 @@ namespace projectAPI
             }
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+           /* if (app.Environment.IsDevelopment())*/
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
