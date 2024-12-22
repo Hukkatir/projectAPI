@@ -22,4 +22,9 @@
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <None Include="C:\Users\dudin\Desktop\учеба\Ларионов\апишка и все такое\projectAPI\projectAPI\.editorconfig" />
+  </ItemGroup>
+
 </Project>

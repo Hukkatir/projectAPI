@@ -38,12 +38,85 @@ namespace BusinessLogic.Services
             { 
                 throw new ArgumentNullException(nameof(model));
             }
+            if (string.IsNullOrEmpty(model.Username))
+            { 
+                throw new ArgumentException(nameof(model.Username));
+            }
+            if (string.IsNullOrEmpty(model.UserPassword))
+            {
+                throw new ArgumentException(nameof(model.UserPassword));
+            }
+            if (string.IsNullOrEmpty(model.Email))
+            {
+                throw new ArgumentException(nameof(model.Email));
+            }
+            if (!IsValidEmail(model.Email))
+            {
+                throw new ArgumentException(nameof(model.Email));
+            }
+            if (string.IsNullOrEmpty(model.FirstName))
+            {
+                throw new ArgumentException(nameof(model.FirstName));
+            }
+            if (string.IsNullOrEmpty(model.LastName))
+            {
+                throw new ArgumentException(nameof(model.LastName));
+            }
+         
             await _repositoryWrapper.User.Create(model);
             _repositoryWrapper.Save();
         }
 
         public async Task Update(User model)
         {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+            if (string.IsNullOrEmpty(model.Username))
+            {
+                throw new ArgumentException(nameof(model.Username));
+            }
+            if (string.IsNullOrEmpty(model.UserPassword))
+            {
+                throw new ArgumentException(nameof(model.UserPassword));
+            }
+            if (string.IsNullOrEmpty(model.Email))
+            {
+                throw new ArgumentException(nameof(model.Email));
+            }
+            if (!IsValidEmail(model.Email))
+            {
+                throw new ArgumentException(nameof(model.Email));
+            }
+            if (string.IsNullOrEmpty(model.FirstName))
+            {
+                throw new ArgumentException(nameof(model.FirstName));
+            }
+            if (string.IsNullOrEmpty(model.LastName))
+            {
+                throw new ArgumentException(nameof(model.LastName));
+            }
+
+            
+            if (model.DateOfBirth > DateTime.Now)
+            {
+                throw new ArgumentException(nameof(model.DateOfBirth));
+            }
+            if (model.CreatedDateTime > DateTime.Now)
+            {
+                throw new ArgumentException(nameof(model.CreatedDateTime));
+            }
+            if (model.UpdatedDateTime.HasValue && model.UpdatedDateTime.Value > DateTime.Now)
+            {
+                throw new ArgumentException(nameof(model.UpdatedDateTime));
+            }
+            if (model.DeletedDateTime.HasValue && model.DeletedDateTime.Value > DateTime.Now)
+            {
+                throw new ArgumentException("DeletedDateTime cannot be in the future.", nameof(model.DeletedDateTime));
+            }
+
+
             _repositoryWrapper.User.Update(model);
             _repositoryWrapper.Save();
         }
@@ -56,5 +129,23 @@ namespace BusinessLogic.Services
             _repositoryWrapper.User.Delete(user.First());
             _repositoryWrapper.Save();
         }
+        private bool IsValidEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return false;
+            }
+
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
+    
 }
