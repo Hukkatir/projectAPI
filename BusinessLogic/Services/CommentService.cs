@@ -34,7 +34,7 @@ namespace BusinessLogic.Services
         public async Task Create(Comment model)
         {
             await _repositoryWrapper.Comment.Create(model);
-            _repositoryWrapper.Save(); 
+            _repositoryWrapper.Save();
         }
 
         public async Task Update(Comment model)

@@ -29,17 +29,17 @@ namespace BusinessLogic.Services
         {
             var user = await _repositoryWrapper.User
                 .FindByCondition(x => x.UserId == id);
-            return  user.First();
+            return user.First();
         }
 
         public async Task Create(User model)
         {
             if (model == null)
-            { 
+            {
                 throw new ArgumentNullException(nameof(model));
             }
             if (string.IsNullOrEmpty(model.Username))
-            { 
+            {
                 throw new ArgumentException(nameof(model.Username));
             }
             if (string.IsNullOrEmpty(model.UserPassword))
@@ -62,7 +62,7 @@ namespace BusinessLogic.Services
             {
                 throw new ArgumentException(nameof(model.LastName));
             }
-         
+
             await _repositoryWrapper.User.Create(model);
             _repositoryWrapper.Save();
         }
@@ -98,7 +98,7 @@ namespace BusinessLogic.Services
                 throw new ArgumentException(nameof(model.LastName));
             }
 
-            
+
             if (model.DateOfBirth > DateTime.Now)
             {
                 throw new ArgumentException(nameof(model.DateOfBirth));
@@ -147,5 +147,5 @@ namespace BusinessLogic.Services
             }
         }
     }
-    
+
 }

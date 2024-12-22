@@ -12,9 +12,9 @@ namespace DataAccess.Repositories
     public class UserRepository : RepositoryBase<User>, IUserRepository
     {
         public UserRepository(projectDBContext repositoryContext)
-            : base (repositoryContext)
+            : base(repositoryContext)
         {
-        } 
+        }
 
 
     }

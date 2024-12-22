@@ -11,10 +11,10 @@ namespace projectAPI.Controllers
     [ApiController]
     public class PaymentController : ControllerBase
     {
-        private IPaymentService  _paymentService;
+        private IPaymentService _paymentService;
         public PaymentController(IPaymentService paymentService)
         {
-             _paymentService = paymentService;
+            _paymentService = paymentService;
         }
         /// <summary>
         /// Получение информации о всех картах
@@ -109,7 +109,7 @@ namespace projectAPI.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            await  _paymentService.Delete(id);
+            await _paymentService.Delete(id);
             return Ok();
         }
     }

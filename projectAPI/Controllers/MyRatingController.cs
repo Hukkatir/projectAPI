@@ -20,7 +20,7 @@ namespace projectAPI.Controllers
         /// Получение информации о всех личных оценках
         /// </summary>
         /// <returns></returns>
-        
+
         // GET api/<MyRatingController>
         [HttpGet]
         public async Task<IActionResult> GetAll()

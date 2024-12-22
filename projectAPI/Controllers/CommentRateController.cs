@@ -17,10 +17,10 @@ namespace projectAPI.Controllers
         {
             _commentRateService = commentRateService;
         }
-       /// <summary>
-       /// Полученне информации о всех оценках с комментариями
-       /// </summary>
-       /// <returns></returns>
+        /// <summary>
+        /// Полученне информации о всех оценках с комментариями
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {

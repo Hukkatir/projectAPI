@@ -100,7 +100,7 @@ namespace projectAPI.Controllers
             var Dto = messagesUser.Adapt<MessagesUser>();
             Dto.UpdatedDateTime = DateTime.UtcNow;
             await _messagesUserService.Update(Dto);
-            
+
             return Ok();
         }
         /// <summary>

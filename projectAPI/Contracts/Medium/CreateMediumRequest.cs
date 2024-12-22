@@ -11,6 +11,6 @@
         public int? Episode { get; set; }
         public int MediaTypeId { get; set; }
         public int CreatedBy { get; set; }
- 
+
     }
 }

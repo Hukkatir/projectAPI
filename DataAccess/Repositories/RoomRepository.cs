@@ -13,7 +13,7 @@ namespace DataAccess.Repositories
         public RoomRepository(projectDBContext repositoryContext)
             : base(repositoryContext)
         {
-        } 
-    
+        }
+
     }
 }

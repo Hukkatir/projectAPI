@@ -102,7 +102,7 @@ namespace projectAPI.Controllers
 
         // PUT api/<UserController>
         [HttpPut]
-        public async Task<IActionResult> Update(GetUserResponse user) 
+        public async Task<IActionResult> Update(GetUserResponse user)
         {
             var Dto = user.Adapt<User>();
             Dto.UpdatedDateTime = DateTime.UtcNow;

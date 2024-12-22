@@ -57,7 +57,7 @@ namespace BuisnessLogic.Tests
             userRepositoryMoq.Verify(x => x.Create(It.IsAny<User>()), Times.Never);
             Assert.IsType<ArgumentException>(ex);
 
-     
+
         }
 
 
@@ -81,7 +81,7 @@ namespace BuisnessLogic.Tests
         {
             var newUser = user;
             var ex = await Assert.ThrowsAnyAsync<ArgumentException>(() => service.Create(newUser));
-            userRepositoryMoq.Verify(x => x.Create(It.IsAny<User>()),Times.Never);
+            userRepositoryMoq.Verify(x => x.Create(It.IsAny<User>()), Times.Never);
             Assert.IsType<ArgumentException>(ex);
         }
 
@@ -104,7 +104,7 @@ namespace BuisnessLogic.Tests
             userRepositoryMoq.Verify(x => x.Create(It.IsAny<User>()), Times.Once);
         }
 
-      
+
         public static IEnumerable<object[]> UpdateIncorrectUser()
         {
             return new List<object[]>
@@ -161,7 +161,7 @@ namespace BuisnessLogic.Tests
         {
             var userId = 999;
             userRepositoryMoq.Setup(repo => repo.FindByCondition(It.IsAny<Expression<Func<User, bool>>>()))
-                .ReturnsAsync(new List<User>()); 
+                .ReturnsAsync(new List<User>());
 
             await Assert.ThrowsAsync<InvalidOperationException>(() => service.GetById(userId));
         }

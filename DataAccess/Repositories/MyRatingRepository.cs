@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repositories
 {
-    
+
     public class MyRatingRepository : RepositoryBase<MyRating>, IMyRatingRepository
     {
         public MyRatingRepository(projectDBContext repositoryContext)

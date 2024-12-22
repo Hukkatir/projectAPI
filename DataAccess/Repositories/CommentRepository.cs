@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repositories
 {
-   
+
     public class CommentRepository : RepositoryBase<Comment>, ICommentRepository
     {
         public CommentRepository(projectDBContext repositoryContext)

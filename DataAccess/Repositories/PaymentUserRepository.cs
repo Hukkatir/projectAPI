@@ -15,5 +15,5 @@ namespace DataAccess.Repositories
         {
         }
     }
-     
+
 }

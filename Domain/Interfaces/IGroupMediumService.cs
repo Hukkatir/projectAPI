@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces
 {
-    public interface IGroupMediumService 
+    public interface IGroupMediumService
     {
         Task<List<GroupMedium>> GetAll();
         Task<GroupMedium> GetById(int id);

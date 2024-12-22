@@ -12,8 +12,8 @@ namespace DataAccess.Repositories
     {
         public MessagesUserRepository(projectDBContext repositoryContext)
             : base(repositoryContext)
-        { 
+        {
         }
-    } 
-    
+    }
+
 }

@@ -15,7 +15,7 @@ namespace projectAPI
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-     
+
             builder.Services.AddDbContext<projectDBContext>(
                 optionsAction: options => options.UseSqlServer(connectionString: "Server=DESKTOP-CJMJ3I2;Database=projectDB;Trusted_Connection=True; Integrated Security = True; TrustServerCertificate=True;"));
             builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
@@ -40,17 +40,17 @@ namespace projectAPI
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
-         
+
             builder.Services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "Сайт для просмотра фильмов API",
-                    Description = "Здесь вы ничего не найдете, но можете попробовать",
+                    Title = "пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ API",
+                    Description = "пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ",
                     Contact = new OpenApiContact
                     {
-                        Name = "Киномания",
+                        Name = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ",
                         Url = new Uri("https://www.kinopoisk.ru/")
                     }
                 });

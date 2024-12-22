@@ -86,11 +86,11 @@ namespace projectAPI.Controllers
         [HttpPut]
         public async Task<IActionResult> Update(GetCommentResponse response)
         {
-            
+
             var Dto = response.Adapt<Comment>();
             Dto.UpdatedDateTime = DateTime.UtcNow;
             await _commentService.Update(Dto);
-            
+
             return Ok();
         }
 

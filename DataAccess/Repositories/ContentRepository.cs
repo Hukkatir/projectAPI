@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repositories
 {
-    public class ContentRepository : RepositoryBase<Content> , IContentRepository
+    public class ContentRepository : RepositoryBase<Content>, IContentRepository
     {
         public ContentRepository(projectDBContext repositoryContext)
            : base(repositoryContext)
