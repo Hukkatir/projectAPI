@@ -17,7 +17,7 @@ namespace projectAPI
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddDbContext<projectDBContext>(
-                optionsAction: options => options.UseSqlServer(connectionString: "Server=DESKTOP-CJMJ3I2;Database=projectDB;Trusted_Connection=True; Integrated Security = True; TrustServerCertificate=True;"));
+                optionsAction: options => options.UseSqlServer(builder.Configuration["ConnectionString"]));
             builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 
             builder.Services.AddScoped<IUserService, UserService>();
@@ -60,6 +60,14 @@ namespace projectAPI
             });
 
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<projectDBContext>();
+                context.Database.Migrate();
+
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
